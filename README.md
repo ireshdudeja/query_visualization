@@ -12,8 +12,3 @@
 ## Steps for real time update:
 
 1. Execute streaming.sh script using command "sh streaming.sh" to push new data to server and see real time update
-
-### Following folders/files are created to publish the website on url(www.viewquery.online), so they will be removed in future:
-
-- Godeps(This folder contains the dependices required by project to run on public domain)
-- Procfile
