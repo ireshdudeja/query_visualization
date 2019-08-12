@@ -67,7 +67,7 @@
             function mouseover() {
                 d3.select(this)
                     .transition()
-                    .duration(150)
+                    .duration(100)
                     .attr("r", 16)
                 //.style("fill", "lightsteelblue");
                 // console.log("Node is:", this)
@@ -76,8 +76,8 @@
             function mouseout() {
                 d3.select(this)
                     .transition()
-                    .duration(150)
-                    .attr("r", 11)
+                    .duration(100)
+                    .attr("r", 14)
             }
 
 
@@ -97,6 +97,7 @@
                 .attr("markerWidth", 5)
                 .attr("markerHeight", 5)
                 .attr("orient", "auto")
+                .attr("fill", "gray")
                 .append("svg:path")
                 .attr("d", "M0,-5L10,0L0,5");
 
@@ -104,7 +105,7 @@
                 .data(links)
                 .enter().append("path")//append path
                 .attr("class", "link")
-                .style("stroke", "#000")
+                .style("stroke", "gray") // #3498DB
                 .attr('marker-start', (d) => "url(#arrow)")//attach the arrow from defs
                 .style("stroke-width", 2);
 
@@ -113,9 +114,10 @@
                 .selectAll("circle")
                 .data(nodes)
                 .enter().append("circle")
-                .attr("r", 11)
+                .attr("r", 14)
                 .attr("fill", getNodeColor)
-                .attr("stroke", "black")
+                .attr("stroke", "lightgray")
+                .style("stroke-width", 2)
                 .call(dragDrop)
                 .on('click', selectNode)
                 .on("mouseover", mouseover)
@@ -141,9 +143,10 @@
                 .data(nodes)
                 .enter().append("text")
                 .text(function (node) { return node.label })
-                .attr("font-size", 15)
-                .attr("dx", 15)
-                .attr("dy", 4)
+                .attr("font-size", 17)
+                .style("font-family", "verdana")
+                .attr("dx", 18)
+                .attr("dy", 12)
 
             simulation.nodes(nodes).on('tick', () => {
                 nodeElements
@@ -160,7 +163,7 @@
         }
 
         function getNodeColor(node) {
-            return node.level === 2 ? 'OrangeRed' : 'SpringGreen'
+            return node.level === 2 ? '#008CFF' : '#008CFF'
         }
 
         function selectNode(selectedNode) {
