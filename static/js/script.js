@@ -1,12 +1,6 @@
         // Variables
         var socket = new WebSocket("ws://localhost:4000/echo");
-        var parametersChart = null;
-        var chartLabels = [];
-        var chartData = [];
-        let newChart;
-        let chartType = 'bar';
         var currentlySelectedNode;
-
         const api_url = '/api'; // '/api' or 'http://localhost:4000/api' will work
 
         // Function Definitions
@@ -81,13 +75,13 @@
             }
 
 
-            var tooltip = d3.select("body")
-                .append("div")
-                .attr("class", "card")
-                .style("position", "absolute")
-                .style("z-index", "20")
-                .style("visibility", "hidden")
-                .text("No Information Available!");
+            // var tooltip = d3.select("body")
+            //     .append("div")
+            //     .attr("class", "card")
+            //     .style("position", "absolute")
+            //     .style("z-index", "20")
+            //     .style("visibility", "hidden")
+            //     .text("No Information Available!");
 
             svg = d3.select("svg")
             svg.append("svg:defs").append("svg:marker")
@@ -101,7 +95,9 @@
                 .append("svg:path")
                 .attr("d", "M0,-5L10,0L0,5");
 
-            var linkElements = svg.selectAll("line.link")
+            var linkElements = svg.append("g")
+                .attr("class", "links")
+                .selectAll("line.link")
                 .data(links)
                 .enter().append("path")//append path
                 .attr("class", "link")
