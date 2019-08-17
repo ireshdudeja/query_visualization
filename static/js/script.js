@@ -1,7 +1,7 @@
         // Variables
         var socket = new WebSocket("ws://localhost:4000/echo");
-        var currentlySelectedNode;
         const api_url = '/api'; // '/api' or 'http://localhost:4000/api' will work
+        var currentlySelectedNodeId;
 
         // Function Definitions
         function fetchData() {
@@ -163,12 +163,32 @@
         }
 
         function selectNode(selectedNode) {
-            console.log("Selected Node: "+ selectedNode);
-            currentlySelectedNode = selectedNode;
-            var operatorTitleHeading = document.getElementById("operator-title");
-            operatorTitleHeading.innerText = " Operator Statistics" + " | " + selectedNode.label;
-            document.getElementById("param-cards-row").style.display = "block"; // block | none
-            createParametersCards(selectedNode.parameters);
+            
+            currentlySelectedNodeId = selectedNode.id;
+
+            fetch(api_url)
+                .then(function (response) {
+                    return response.json();
+                }).then(function (myJson) {
+
+                    var nodes = myJson.nodes;
+
+                    nodes.forEach(function (node) {
+                        if (currentlySelectedNodeId != null) {
+        
+                            if (node.id == currentlySelectedNodeId) {
+
+                                var operatorTitleHeading = document.getElementById("operator-title");
+                                operatorTitleHeading.innerText = " Operator Statistics" + " | " + node.label;
+                                document.getElementById("param-cards-row").style.display = "block"; // block | none
+                                createParametersCards(node.parameters);
+
+                            }
+                        }
+                    });   
+
+                });
+
         }
 
         function createParametersCards(paramObj) {
@@ -396,13 +416,13 @@
             const { nodes, links } = data;
 
 
-            d3.select("#dag").select("svg").remove();
-            createGraph(nodes, links);
+            // d3.select("#dag").select("svg").remove();
+            // createGraph(nodes, links);
 
             nodes.forEach(function (node) {
-                if (currentlySelectedNode != null) {
+                if (currentlySelectedNodeId != null) {
 
-                    if (node.id == currentlySelectedNode.id) {
+                    if (node.id == currentlySelectedNodeId) {
 
                         Object.keys(node.parameters).forEach(function (key) {
 
