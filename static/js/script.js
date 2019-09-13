@@ -207,7 +207,7 @@
                 var visualization = paramObj[key].visualization;
 
                 let cardDiv = cardBody.appendChild(document.createElement('div'));
-                cardDiv.setAttribute("class", "card text-right shadow-sm bg-white rounded");
+                cardDiv.setAttribute("class", "card text-right shadow-sm bg-white rounded border-primary");
 
                 let cardHeaderElement = cardDiv.appendChild(document.createElement('h5'));
                 cardHeaderElement.setAttribute("class", "card-header text-primary");
