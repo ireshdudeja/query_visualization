@@ -191,8 +191,6 @@
 
         }
 
-        var chartCounter = {}
-
         function createParametersCards(paramObj) {
 
             let cardBody = document.getElementById("param-cards-columns");
@@ -200,9 +198,8 @@
                 cardBody.removeChild(cardBody.firstChild);
                 paramChartsArray = [];
             }
-            
-            chartCounter = {}
 
+           
             Object.keys(paramObj).forEach(function (key) {
 
                 var paramName = paramObj[key].name;
@@ -229,12 +226,14 @@
 
                 let chartDiv = cardBodyDiv.appendChild(document.createElement('div'));
                 chartDiv.setAttribute("id", key);
-
-                chartCounter[key] = 0
                 
                 
                 function getData() {
                     return parseFloat(initialValue); 
+                }
+
+                function getTempData() {
+                    return Math.random(); 
                 }
 
 
@@ -379,6 +378,9 @@
                               }
         
                         };
+
+                        
+                        
         
                         Plotly.plot(key, [{
                             y: [getData()],
@@ -392,8 +394,6 @@
                   chartDiv.style.display = "none";
 
             });
-
-            console.log("Chart Counter: " + JSON.stringify(chartCounter, null, 4))
 
         }
 
@@ -452,30 +452,39 @@
                                         var chart=$("#"+key).highcharts();
                                             if (!chart.renderer.forExport) {
                                                     var point = chart.series[0].points[0],
-                                                        newVal;
+                                                        newVal,
+                                                        inc = Math.round((Math.random() - 0.5) * 20);
                                                     newVal = getData();
                                                     point.update(newVal);
+                                        
                                             }
                                 break;
 
                                 default:
+                                    var cnt = 0;
                                         Plotly.extendTraces(key, {
                                             y: [[getData()]]
                                             }, [0]);
-                                        chartCounter[key]++;
-                                        if (chartCounter[key] > 10) {
+                                        cnt++;
+                                        if (cnt > 10) {
                                             Plotly.relayout(key, {
                                                 xaxis: {
-                                                    range: [chartCounter[key] - 10, chartCounter[key]]
+                                                    range: [cnt - 10, cnt]
                                                 }
                                             });
                                         }
                             }
+
+                            
+                            
                         });
+
                     }
                 }
                 else {
                     console.log("No node is selected");
                 }
+
             });
+
         }
