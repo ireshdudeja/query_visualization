@@ -1,6 +1,6 @@
 # Query Visualization
 
-Query Visualization Project aims to provide the live query statistics in visual appealing way so that by analyzing these real time statistics, the Database Administrator (DBA) can troubleshoot the poorly performing query. Not only the DBA, but also the developers of the “Stream Processing sEngine” can use this project to monitor their algorithms.
+Query Visualization Project aims to provide the live query statistics in visual appealing way so that by analyzing these real time statistics, the Database Administrator (DBA) can troubleshoot the poorly performing query. Not only the DBA, but also the developers of the “Stream Processing Engine” can use this project to monitor their algorithms.
 
 ## Steps to run locally:
 
